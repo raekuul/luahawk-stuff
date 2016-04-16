@@ -1,56 +1,80 @@
--- Definitions and relative addresses are referencing http://wiki.qhimm.com/view/FF7/Battle/Battle_Mechanics
+-- Definitions and relative addresses are referencing http://wiki.qhimm.com/view/FF7/Battle/
+
 rng_index = 0x62e18
 rng_table = 0x62e10
 
+enemy_level_offset = 0x0020
+enemy_health_offset = 0x0
+enemy_ATB_offset = 0x0
+enemy_itemrate_offset = 0x0088
+enemy_itemset_offset = 0x008C
+team_index_offset = 0x00
+team_level_offset = 0x0
+team_luck_offset = 0x07
+team_limit_offset = 0x0
+team_atb_offset = 0x18
+
 enemies = {
-	["levels"] = {
-		[0]=0xf8589,
-		[1]=0x0,
-		[2]=0x0,
-		[3]=0x0,
+	["root"] = {
+		[0]=0x0
+		[1]=0x0
+		[2]=0x0
+		[3]=0x0
 		[4]=0x0
+	}
+	["levels"] = {
+		[0]=enemy.root[0]+enemy_level_offset,
+		[1]=enemy.root[1]+enemy_level_offset,
+		[2]=enemy.root[2]+enemy_level_offset,
+		[3]=enemy.root[3]+enemy_level_offset,
+		[4]=enemy.root[4]+enemy_level_offset
 	},
 	["health"] = {
-		[0]=0x0,
-		[1]=0x0,
-		[2]=0x0,
-		[3]=0x0,
-		[4]=0x0
+		[0]=enemy.root[0]+enemy_health_offset,
+		[1]=enemy.root[1]+enemy_health_offset,
+		[2]=enemy.root[2]+enemy_health_offset,
+		[3]=enemy.root[3]+enemy_health_offset,
+		[4]=enemy.root[4]+enemy_health_offset
 	},
 	["ATB"] = {
-		[0]=0x0,
-		[1]=0x0,
-		[2]=0x0,
-		[3]=0x0,
-		[4]=0x0
+		[0]=enemy.root[0]+enemy_ATB_offset,
+		[1]=enemy.root[1]+enemy_ATB_offset,
+		[2]=enemy.root[2]+enemy_ATB_offset,
+		[3]=enemy.root[3]+enemy_ATB_offset,
+		[4]=enemy.root[4]+enemy_ATB_offset
 	}
 }
 
 team = {
+	["root"] = {
+		[0]=0x0,
+		[1]=0x0, 
+		[2]=0x0
+	}
+	["charindex"] = {
+		[0]=team.root[0]+team_index_offset,
+		[1]=team.root[1]+team_index_offset,
+		[2]=team.root[2]+team_index_offset 
+	}, 
 	["levels"] = {
-		[0]=0xf83e9,
-		[1]=0xf8451, 
-		[2]=0xf84b9
+		[0]=team.root[0]+team_level_offset,
+		[1]=team.root[1]+team_level_offset,
+		[2]=team.root[2]+team_level_offset 
 	}, 
 	["luck"] = {
-		[0]=0xf83f5,
-		[1]=0xf845d,
-		[2]=0xf84c5
-	}, 
-	["charindex"] = {
-		[0]=0x0,
-		[1]=0x0,
-		[2]=0x0 
+		[0]=team.root[0]+team_luck_offset,
+		[1]=team.root[1]+team_luck_offset,
+		[2]=team.root[2]+team_luck_offset 
 	}, 
 	["ATB"] = {
-		[0]=0x0,
-		[1]=0x0,
-		[2]=0x0
+		[0]=team.root[0]+team_ATB_offset,
+		[1]=team.root[1]+team_ATB_offset,
+		[2]=team.root[2]+team_ATB_offset 
 	}, 
 	["Limit"] = {
-		[0]=0x0,
-		[1]=0x0,
-		[2]=0x0
+		[0]=team.root[0]+team_limit_offset,
+		[1]=team.root[1]+team_limit_offset,
+		[2]=team.root[2]+team_limit_offset 
 	}
 }
 
@@ -108,7 +132,7 @@ while true do
 	--[[crit_table = {}
 	for i = 0, 2 do
 		for j = 0, 4 do
-			crit_table[i][j] = generateCrit(team.luck[i], team.level[i], enemies.level[j]
+			crit_table[i][j] = generateCrit(team.luck[i], team.level[i], enemies.level[j])
 		end
 	end]]
 	
